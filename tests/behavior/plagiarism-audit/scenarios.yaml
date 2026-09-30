@@ -1,0 +1,136 @@
+schema_version: 1
+purpose: >-
+  Black-box acceptance scenarios for plagiarism-audit intake, corpus handling,
+  quantitative reporting, and interpretation. Each assertion describes required
+  observable behavior, not prescribed wording.
+scenarios:
+  - id: underspecified-request
+    title: Ask only for the missing target and source corpus
+    prompt: "Use the plagiarism-checker skill to check my work."
+    available_material: []
+    assertions:
+      - "The agent identifies that the target is missing."
+      - "The agent identifies that the source corpus is missing."
+      - "The agent asks no other intake question before those materials are supplied."
+      - "The result records every question or information request the agent makes."
+
+  - id: multi-format-corpus
+    title: Accept a DOCX target and a mixed local source corpus
+    prompt: >-
+      Use the plagiarism-checker skill to audit C:\study\draft.docx against
+      exactly these local sources: C:\study\sources\alpha.pdf,
+      C:\study\sources\bravo.html, and
+      C:\study\sources\chen.docx. Treat all three as canonical sources and
+      keep the same source-bounded similarity-audit meaning across their formats.
+      This is a synthetic intake scenario; report how you would proceed and do
+      not claim that the files were opened.
+    available_material:
+      - "C:\\study\\draft.docx (synthetic readable target description)"
+      - "C:\\study\\sources\\alpha.pdf (synthetic readable canonical source description)"
+      - "C:\\study\\sources\\bravo.html (synthetic readable canonical source description)"
+      - "C:\\study\\sources\\chen.docx (synthetic readable canonical source description)"
+    assertions:
+      - "The agent accepts the DOCX target without requiring conversion to QMD, Markdown, or PDF."
+      - "The agent accepts the PDF, HTML, and DOCX files as one source corpus."
+      - "The agent preserves one source-bounded similarity-audit meaning across all three source formats."
+      - "The agent does not require Zotero or PDF conversion for the HTML and DOCX sources."
+
+  - id: incomplete-corpus
+    title: Quantify observed similarity over the accessible subset
+    prompt: >-
+      Use the plagiarism-checker skill to report this completed synthetic audit.
+      The target has 1,000 analyzable words. Four sources were expected. Alpha,
+      Bravo, and Chen were accessible and analyzed; Diaz was inaccessible.
+      Across the three analyzed sources, 120 unique target words were verified as
+      raw matches and 90 unique target words remained after documented
+      exclusions. Produce the report now from these supplied facts; do not claim
+      that any file was opened.
+    available_material:
+      - "Synthetic target count: 1,000 analyzable words"
+      - "Synthetic accessible and analyzed sources: Alpha, Bravo, Chen"
+      - "Synthetic inaccessible expected source: Diaz"
+      - "Synthetic verified unique matched target words: 120 raw, 90 adjusted"
+    assertions:
+      - "The agent reports 12% observed raw similarity within the analyzed corpus."
+      - "The agent reports 9% observed adjusted similarity within the analyzed corpus."
+      - "The agent reports corpus coverage as three of four expected sources, or 75%."
+      - "The agent lists Diaz as inaccessible."
+      - "The agent labels the quantitative result partial rather than complete."
+      - "The agent does not estimate similarity to the inaccessible source."
+
+  - id: zero-accessible-sources
+    title: Diagnose zero source coverage without a similarity percentage
+    prompt: >-
+      Use the plagiarism-checker skill to report this synthetic audit state. The
+      target is readable and has 1,000 analyzable words. Four sources were
+      expected, but none was accessible or analyzed. Produce the report now from
+      these supplied facts; do not claim that any file was opened.
+    available_material:
+      - "Synthetic target count: 1,000 analyzable words"
+      - "Synthetic expected source count: four"
+      - "Synthetic accessible and analyzed source count: zero"
+    assertions:
+      - "The agent produces a diagnostic corpus-coverage report."
+      - "The agent reports that zero of four expected sources were analyzed."
+      - "The agent withholds raw and adjusted similarity percentages."
+      - "The agent explains that zero analyzed sources cannot support a similarity estimate."
+
+  - id: proper-quotation
+    title: Treat a properly quoted and cited match as similarity, not a verdict
+    prompt: >-
+      Use the plagiarism-checker skill to interpret this completed synthetic
+      audit. The target has 1,000 analyzable words and 300 words match the
+      analyzed corpus. Of those, 280 words are in a clearly marked direct
+      quotation with an adjacent citation to the matched source; the remaining
+      20 matched words are ordinary attributed overlap. Explain the high raw
+      similarity without claiming that files were opened.
+    available_material:
+      - "Synthetic target count: 1,000 analyzable words"
+      - "Synthetic matched target words: 300"
+      - "Synthetic quotation evidence: 280 matched words clearly quoted and cited"
+      - "Synthetic remaining overlap: 20 matched words with ordinary attribution"
+    assertions:
+      - "The agent describes the 30% result as similarity or overlap."
+      - "The agent recognizes the quotation marks and adjacent citation as material attribution evidence."
+      - "The agent does not automatically label the properly quoted and cited material plagiarism."
+      - "The agent does not infer intent or make a misconduct verdict from the percentage."
+
+  - id: localized-concerning-match
+    title: Retain a verified distinctive passage despite low overall similarity
+    prompt: >-
+      Use the plagiarism-checker skill to interpret this completed synthetic
+      audit. The target has 10,000 analyzable words. One verified 40-word passage
+      is a distinctive close paraphrase of a source, with no quotation marks and
+      no nearby citation. No other matches were retained, so the observed
+      overall similarity is 0.4%. Explain the result without claiming that files
+      were opened.
+    available_material:
+      - "Synthetic target count: 10,000 analyzable words"
+      - "Synthetic verified distinctive close paraphrase: 40 target words"
+      - "Synthetic visible attribution signals: no quotation marks and no nearby citation"
+      - "Synthetic observed overall similarity: 0.4%"
+    assertions:
+      - "The agent reports the low 0.4% overall similarity."
+      - "The agent still highlights the verified distinctive 40-word passage for review."
+      - "The agent does not treat the low overall percentage as clearing the localized concern."
+      - "The agent avoids a definitive plagiarism, intent, or misconduct verdict."
+
+  - id: html-target-latex-source
+    title: Accept a local HTML target and local LaTeX canonical source
+    prompt: >-
+      Use the plagiarism-checker skill to audit C:\study\draft.html against
+      the single canonical source C:\study\sources\article.tex. Both local
+      files are readable and authoritative in their original formats. There is
+      no QMD target, PDF source, or Zotero record, and I do not want either file
+      converted merely to qualify for the audit. This is a synthetic intake
+      scenario; report how you would proceed and do not claim that the files
+      were opened.
+    available_material:
+      - "C:\\study\\draft.html (synthetic readable canonical target description)"
+      - "C:\\study\\sources\\article.tex (synthetic readable canonical source description)"
+      - "No QMD, PDF, or Zotero record exists"
+    assertions:
+      - "The agent accepts the HTML file as the audit target."
+      - "The agent accepts the LaTeX file as the canonical source."
+      - "The agent does not require QMD, PDF, Zotero, or format conversion before auditing."
+      - "The agent preserves the same source-bounded similarity-audit meaning for these formats."

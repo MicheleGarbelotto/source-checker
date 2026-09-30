@@ -1,0 +1,5 @@
+*.docx binary
+*.docm binary
+*.pdf binary
+skills/**/scripts/source_corpus.py text eol=lf
+tests/behavior/plagiarism-audit/scenarios.yaml text eol=lf

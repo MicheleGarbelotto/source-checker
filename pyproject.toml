@@ -1,0 +1,54 @@
+[build-system]
+requires = ["hatchling>=1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+name = "source-checker"
+version = "0.1.0"
+description = "Shared document and source-corpus tooling for citation support and plagiarism audits"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+keywords = [
+  "agent-skills",
+  "citation-verification",
+  "document-analysis",
+  "plagiarism-audit",
+  "research-integrity",
+]
+authors = [
+  { name = "Michele Garbelotto" }
+]
+dependencies = [
+  "beautifulsoup4>=4.12",
+  "python-docx>=1.1",
+  "pypdf>=5.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/MicheleGarbelotto/source-checker"
+Changelog = "https://github.com/MicheleGarbelotto/source-checker/blob/main/CHANGELOG.md"
+Repository = "https://github.com/MicheleGarbelotto/source-checker"
+Issues = "https://github.com/MicheleGarbelotto/source-checker/issues"
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "ruff>=0.7", "pyright>=1.1", "PyYAML>=6.0"]
+
+[project.scripts]
+source-checker-corpus = "source_checker.cli:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+extend-exclude = ["skills/*/scripts"]
+
+[tool.pyright]
+include = ["src", "tests", "tools"]
+pythonVersion = "3.11"
+venvPath = "."
+venv = ".venv"

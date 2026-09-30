@@ -1,0 +1,4 @@
+interface:
+  display_name: "Citation Support Audit"
+  short_description: "Audit whether citations support a document's claims"
+  default_prompt: "Use $citation-support-audit to run a complete source-grounded citation support audit of this document."

@@ -1,0 +1,95 @@
+schema_version: 1
+non_trigger_definition: >-
+  The named suite skill must not activate; another skill may be the correct route
+  when the prompt explicitly requests that other workflow.
+skills:
+  citation-support-audit:
+    direct:
+      prompt: >-
+        Use Citation Support Audit to verify whether the claims in this paper are
+        supported by the supplied sources.
+      expected_activation: citation-support-audit
+      requestable_missing_inputs:
+        - paper
+        - supplied sources
+        - claim-to-source mapping if unclear
+      forbidden_substitution: plagiarism-audit
+    indirect:
+      prompt: >-
+        Check whether each cited source actually supports the nearby claim and
+        flag claims that need citations.
+      expected_activation: citation-support-audit
+      requestable_missing_inputs:
+        - cited text or document
+        - cited sources or accessible bibliography
+      forbidden_substitution: plagiarism-audit
+    incomplete:
+      prompt: "Check my citations."
+      expected_activation: citation-support-audit
+      requestable_missing_inputs:
+        - document or text
+        - type of citation check
+        - source materials for claim-support checking
+      forbidden_substitution: plagiarism-audit
+    non-trigger:
+      prompt: >-
+        Copyedit this paper for grammar without checking its sources or citations.
+      expected_activation: none
+      requestable_missing_inputs:
+        - paper text or file
+      forbidden_substitution: plagiarism-audit
+    edge:
+      prompt: >-
+        Check citation support using the readable sources, but one cited source is
+        unavailable.
+      expected_activation: citation-support-audit
+      requestable_missing_inputs:
+        - text or document to audit
+        - readable cited sources
+        - bibliographic details of unavailable source
+      forbidden_substitution: plagiarism-audit
+  plagiarism-audit:
+    direct:
+      prompt: >-
+        Use Plagiarism Audit to compare this document with the supplied source
+        corpus.
+      expected_activation: plagiarism-audit
+      requestable_missing_inputs:
+        - document
+        - source corpus
+      forbidden_substitution: citation-support-audit
+    indirect:
+      prompt: >-
+        Find close paraphrases, patchwriting, and unattributed textual overlap
+        against these source files.
+      expected_activation: plagiarism-audit
+      requestable_missing_inputs:
+        - document to examine
+        - source files to compare against
+      forbidden_substitution: citation-support-audit
+    incomplete:
+      prompt: "Check this for plagiarism."
+      expected_activation: plagiarism-audit
+      requestable_missing_inputs:
+        - document to check
+        - comparison corpus or scope
+      forbidden_substitution: citation-support-audit
+    non-trigger:
+      prompt: >-
+        Verify whether the cited studies support the paper's causal claims; do not
+        assess textual similarity.
+      expected_activation: citation-support-audit
+      requestable_missing_inputs:
+        - paper or relevant cited passages
+        - cited studies or accessible links/DOIs
+      forbidden_substitution: none
+    edge:
+      prompt: >-
+        Report observed textual overlap against the three readable sources while a
+        fourth expected source is unavailable.
+      expected_activation: plagiarism-audit
+      requestable_missing_inputs:
+        - target document
+        - three readable sources
+        - identifier of unavailable fourth source
+      forbidden_substitution: citation-support-audit

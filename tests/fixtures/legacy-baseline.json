@@ -1,0 +1,13 @@
+{
+  "citation_checker_tests": 3,
+  "plagiarism_checker_tests": 3,
+  "legacy_source_corpus_sha256": "0d3ac8720615db13bb014ba69d270083c639fddb5677e434782da9ff951d7f0d",
+  "preserved_behaviors": [
+    "Pandoc citekeys retain first-seen order and heading provenance",
+    "CSV aliases merge into one cited-source manifest",
+    "resolved PDFs receive SHA-256 hashes",
+    "missing sources remain explicit manifest rows",
+    "PDF caches are page-and-block addressable",
+    "unchanged PDF hashes reuse the existing cache"
+  ]
+}

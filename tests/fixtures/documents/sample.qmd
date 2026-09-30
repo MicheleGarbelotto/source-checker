@@ -1,0 +1,7 @@
+---
+title: Sample document
+---
+
+# Background {#background}
+
+The first claim cites [@alpha2020; @delta2023].

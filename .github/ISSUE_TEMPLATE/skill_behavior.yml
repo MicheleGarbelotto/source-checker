@@ -1,0 +1,75 @@
+name: Skill behavior report
+description: Report an unexpected skill activation, boundary, or output.
+title: "[Skill behavior]: "
+labels:
+  - skill-behavior
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Describe the behavior with synthetic examples only. Do not attach
+        confidential target or source documents.
+  - type: dropdown
+    id: skill-name
+    attributes:
+      label: Skill name
+      description: Select the skill whose behavior you observed.
+      options:
+        - citation-support-audit
+        - plagiarism-audit
+    validations:
+      required: true
+  - type: textarea
+    id: triggering-prompt
+    attributes:
+      label: Triggering prompt
+      description: Provide the exact synthetic prompt that triggered the behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-activation
+    attributes:
+      label: Expected activation
+      description: State whether and how the skill should have activated.
+    validations:
+      required: true
+  - type: textarea
+    id: supplied-inputs
+    attributes:
+      label: Supplied inputs
+      description: List the synthetic target and source inputs or corpus route.
+    validations:
+      required: true
+  - type: textarea
+    id: observed-output
+    attributes:
+      label: Observed output
+      description: Describe the observed result without confidential material.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-boundary
+    attributes:
+      label: Expected boundary
+      description: Describe the expected judgment boundary or nonclaim.
+    validations:
+      required: true
+  - type: dropdown
+    id: corpus-completeness
+    attributes:
+      label: Corpus completeness
+      description: Identify how complete the supplied source corpus was.
+      options:
+        - Complete
+        - Partial
+        - Unknown
+    validations:
+      required: true
+  - type: checkboxes
+    id: confidentiality-confirmation
+    attributes:
+      label: Confidentiality confirmation
+      description: Confirm that the report is safe to publish.
+      options:
+        - label: I confirm that this report contains no confidential documents.
+          required: true

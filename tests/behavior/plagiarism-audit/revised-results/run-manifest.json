@@ -1,0 +1,264 @@
+{
+  "schema_version": 3,
+  "record": "plagiarism-audit Task 7 public behavioral evidence",
+  "supersedes": {
+    "commit": "a483b5f",
+    "reason": "The earlier accepted-set manifest separately verified outer envelope hashes and a current skill-tree hash but did not cross-check the skill hashes embedded inside envelopes after older workspaces had been copied and replaced. That set is not relied on by this record."
+  },
+  "hash_algorithms": {
+    "files": "SHA-256 of exact file bytes, rendered as lowercase hexadecimal",
+    "skill_snapshot_tree": "For every file below a plagiarism-audit directory, sort by case-sensitive forward-slash path relative to that directory; encode relative_path + NUL + lowercase_file_sha256 + LF as UTF-8; concatenate all records; SHA-256 the resulting bytes",
+    "embedded_skill_snapshot_tree": "For each envelope skill_snapshot entry, remove the leading plagiarism-audit/ path component, sort the normalized forward-slash paths case-sensitively, then apply the skill_snapshot_tree record algorithm using the embedded SHA-256 values"
+  },
+  "scenario_file": {
+    "path": "tests/behavior/plagiarism-audit/scenarios.yaml",
+    "sha256": "94c01216dcaee86d6e925953037f59f99207038ae8897e66cced4d9b8b3a76a0",
+    "bytes": 8011
+  },
+  "definitive_set_repository_skill_at_capture": {
+    "path": "skills/plagiarism-audit",
+    "repository_state_commit": "a483b5f",
+    "tree_hash_note": "Exact captured worktree bytes; Git object normalization may make this differ from a tree recomputed from blobs.",
+    "file_count": 29,
+    "tree_sha256": "400790468bdb2a5f2fcf14b418b6d1d18e61cb2b1bd9701260832c46d0372342"
+  },
+  "execution": {
+    "model": "gpt-5.6-sol",
+    "codex_cli_version": "0.155.0-alpha.9.2",
+    "user_visible_assistant_message_count": 11
+  },
+  "capture_source": {
+    "portable": false,
+    "construction": "Built from scratch from the then-current committed skill; synthetic artifacts were created or copied before envelopes were generated from the exact YAML prompt/material and hashes of the already-copied files.",
+    "workspace_index": {
+      "path_within_root": "workspace-index.json",
+      "sha256": "4699ea2de3f63139a393afb31dd5571c9c2bc1e9caa4f9049db45258c30fa5f3",
+      "bytes": 4284,
+      "role": "Pre-dispatch record of envelope, artifact, skill-tree hashes, and file counts"
+    },
+    "cleanup_status": "completed_after_full_cross_validation",
+    "cleanup_note": "The controller removed the from-scratch definitive root only after independently validating outer envelope and artifact hashes, all 203 embedded skill entries, embedded/copied/repository-at-capture tree equality, captured user-visible streams, and assertion rows. The recorded hashes document the frozen evaluation but are not portable standalone reproduction inputs."
+  },
+  "cross_validation": {
+    "outer_envelope_hashes_match_workspace_index": true,
+    "artifact_hashes_and_sizes_match_envelopes_and_workspace_index": true,
+    "exact_yaml_prompts_and_available_material_match_all_envelopes": true,
+    "all_envelope_embedded_skill_hashes_match_copied_files": true,
+    "all_envelope_embedded_skill_sizes_match_copied_files": true,
+    "all_normalized_embedded_skill_trees_match_copied_skill_trees": true,
+    "all_copied_skill_trees_matched_repository_skill_at_capture": true,
+    "common_tree_sha256": "400790468bdb2a5f2fcf14b418b6d1d18e61cb2b1bd9701260832c46d0372342",
+    "common_file_count": 29
+  },
+  "scenarios": [
+    {
+      "scenario_id": "underspecified-request",
+      "session_started_at": "2026-09-23T01:14:14.519Z",
+      "session_completed_at": "2026-09-23T01:14:30.524Z",
+      "model": "gpt-5.6-sol",
+      "codex_cli_version": "0.155.0-alpha.9.2",
+      "user_visible_assistant_message_count": 1,
+      "envelope": {
+        "path_within_scenario": "envelope.json",
+        "sha256": "a827d7f3b77bb31313426c0d75e5066f4fa59658a07cf93686ecfd0eb80bc805",
+        "bytes": 6143
+      },
+      "artifacts": [],
+      "skill_snapshot": {
+        "directory_within_scenario": "plagiarism-audit",
+        "file_count": 29,
+        "tree_sha256": "400790468bdb2a5f2fcf14b418b6d1d18e61cb2b1bd9701260832c46d0372342",
+        "embedded_entry_count": 29,
+        "embedded_hashes_and_sizes_match_files": true,
+        "normalized_embedded_tree_sha256": "400790468bdb2a5f2fcf14b418b6d1d18e61cb2b1bd9701260832c46d0372342",
+        "matched_repository_skill_at_capture": true
+      }
+    },
+    {
+      "scenario_id": "multi-format-corpus",
+      "session_started_at": "2026-09-23T01:14:21.844Z",
+      "session_completed_at": "2026-09-23T01:15:07.188Z",
+      "model": "gpt-5.6-sol",
+      "codex_cli_version": "0.155.0-alpha.9.2",
+      "user_visible_assistant_message_count": 2,
+      "envelope": {
+        "path_within_scenario": "envelope.json",
+        "sha256": "333db07d61de588f73400db42b5eed9837d3eff8601a62e4a24396f25bfb3403",
+        "bytes": 7534
+      },
+      "artifacts": [
+        { "path_within_scenario": "artifacts/alpha.pdf", "sha256": "3576aba993038e53bdf7222cde922be2a355f520cd8fd34188a2c893afcf5fbb", "bytes": 994 },
+        { "path_within_scenario": "artifacts/bravo.html", "sha256": "41d432a63f0b223015566d041c425ae142edf0e7455aa2df2afb7e17552b2c0b", "bytes": 189 },
+        { "path_within_scenario": "artifacts/chen.docx", "sha256": "687cb3ec7b8f0bc60b373b77e9382afb834da91b41cfe4688fb9f8f5065e6c31", "bytes": 36791 },
+        { "path_within_scenario": "artifacts/draft.docx", "sha256": "687cb3ec7b8f0bc60b373b77e9382afb834da91b41cfe4688fb9f8f5065e6c31", "bytes": 36791 }
+      ],
+      "skill_snapshot": {
+        "directory_within_scenario": "plagiarism-audit",
+        "file_count": 29,
+        "tree_sha256": "400790468bdb2a5f2fcf14b418b6d1d18e61cb2b1bd9701260832c46d0372342",
+        "embedded_entry_count": 29,
+        "embedded_hashes_and_sizes_match_files": true,
+        "normalized_embedded_tree_sha256": "400790468bdb2a5f2fcf14b418b6d1d18e61cb2b1bd9701260832c46d0372342",
+        "matched_repository_skill_at_capture": true
+      }
+    },
+    {
+      "scenario_id": "incomplete-corpus",
+      "session_started_at": "2026-09-23T01:15:15.954Z",
+      "session_completed_at": "2026-09-23T01:16:23.516Z",
+      "model": "gpt-5.6-sol",
+      "codex_cli_version": "0.155.0-alpha.9.2",
+      "user_visible_assistant_message_count": 2,
+      "envelope": {
+        "path_within_scenario": "envelope.json",
+        "sha256": "fdd14296270c797b3ead0cbf3e5b20cad8ac68b2f6f2a6842483cf813fb11eff",
+        "bytes": 6982
+      },
+      "artifacts": [
+        { "path_within_scenario": "artifacts/facts.json", "sha256": "575796c1f3906a0965746e144d5a4db51bd8a14a3d1950dfbb4183c4208810e0", "bytes": 331 }
+      ],
+      "skill_snapshot": {
+        "directory_within_scenario": "plagiarism-audit",
+        "file_count": 29,
+        "tree_sha256": "400790468bdb2a5f2fcf14b418b6d1d18e61cb2b1bd9701260832c46d0372342",
+        "embedded_entry_count": 29,
+        "embedded_hashes_and_sizes_match_files": true,
+        "normalized_embedded_tree_sha256": "400790468bdb2a5f2fcf14b418b6d1d18e61cb2b1bd9701260832c46d0372342",
+        "matched_repository_skill_at_capture": true
+      }
+    },
+    {
+      "scenario_id": "zero-accessible-sources",
+      "session_started_at": "2026-09-23T01:15:24.421Z",
+      "session_completed_at": "2026-09-23T01:16:47.692Z",
+      "model": "gpt-5.6-sol",
+      "codex_cli_version": "0.155.0-alpha.9.2",
+      "user_visible_assistant_message_count": 2,
+      "envelope": {
+        "path_within_scenario": "envelope.json",
+        "sha256": "8c4c5359f25e57f79782168394ea8ce992de22cc328675da2db870ad29c14eda",
+        "bytes": 6721
+      },
+      "artifacts": [
+        { "path_within_scenario": "artifacts/facts.json", "sha256": "18a64670d10303acf6b3367dbc9395d7dccb1864267e3bcff82d05dd92caa6c5", "bytes": 101 }
+      ],
+      "skill_snapshot": {
+        "directory_within_scenario": "plagiarism-audit",
+        "file_count": 29,
+        "tree_sha256": "400790468bdb2a5f2fcf14b418b6d1d18e61cb2b1bd9701260832c46d0372342",
+        "embedded_entry_count": 29,
+        "embedded_hashes_and_sizes_match_files": true,
+        "normalized_embedded_tree_sha256": "400790468bdb2a5f2fcf14b418b6d1d18e61cb2b1bd9701260832c46d0372342",
+        "matched_repository_skill_at_capture": true
+      }
+    },
+    {
+      "scenario_id": "proper-quotation",
+      "session_started_at": "2026-09-23T01:16:57.764Z",
+      "session_completed_at": "2026-09-23T01:17:40.685Z",
+      "model": "gpt-5.6-sol",
+      "codex_cli_version": "0.155.0-alpha.9.2",
+      "user_visible_assistant_message_count": 1,
+      "envelope": {
+        "path_within_scenario": "envelope.json",
+        "sha256": "d96039e848fe3e7a0e55598244963e4cb6cb27ed9172faae9bb999bf7d78033e",
+        "bytes": 6943
+      },
+      "artifacts": [
+        { "path_within_scenario": "artifacts/facts.json", "sha256": "29a5dc907e4fb8e1f3c9ade482ab2e5fa96704f8bba11aeae44e5bb95b91d669", "bytes": 180 }
+      ],
+      "skill_snapshot": {
+        "directory_within_scenario": "plagiarism-audit",
+        "file_count": 29,
+        "tree_sha256": "400790468bdb2a5f2fcf14b418b6d1d18e61cb2b1bd9701260832c46d0372342",
+        "embedded_entry_count": 29,
+        "embedded_hashes_and_sizes_match_files": true,
+        "normalized_embedded_tree_sha256": "400790468bdb2a5f2fcf14b418b6d1d18e61cb2b1bd9701260832c46d0372342",
+        "matched_repository_skill_at_capture": true
+      }
+    },
+    {
+      "scenario_id": "localized-concerning-match",
+      "session_started_at": "2026-09-23T01:17:06.054Z",
+      "session_completed_at": "2026-09-23T01:17:55.087Z",
+      "model": "gpt-5.6-sol",
+      "codex_cli_version": "0.155.0-alpha.9.2",
+      "user_visible_assistant_message_count": 1,
+      "envelope": {
+        "path_within_scenario": "envelope.json",
+        "sha256": "25f2c073ccca89f10138dc662b36f8ec7246a8490b41fc94a3620ab21985a8e7",
+        "bytes": 6937
+      },
+      "artifacts": [
+        { "path_within_scenario": "artifacts/facts.json", "sha256": "644b6b381446a47c2811a431d9d8f9c32edd81b4dc05cca51c9841b8d7191a13", "bytes": 190 }
+      ],
+      "skill_snapshot": {
+        "directory_within_scenario": "plagiarism-audit",
+        "file_count": 29,
+        "tree_sha256": "400790468bdb2a5f2fcf14b418b6d1d18e61cb2b1bd9701260832c46d0372342",
+        "embedded_entry_count": 29,
+        "embedded_hashes_and_sizes_match_files": true,
+        "normalized_embedded_tree_sha256": "400790468bdb2a5f2fcf14b418b6d1d18e61cb2b1bd9701260832c46d0372342",
+        "matched_repository_skill_at_capture": true
+      }
+    },
+    {
+      "scenario_id": "html-target-latex-source",
+      "session_started_at": "2026-09-23T01:18:02.754Z",
+      "session_completed_at": "2026-09-23T01:18:42.483Z",
+      "model": "gpt-5.6-sol",
+      "codex_cli_version": "0.155.0-alpha.9.2",
+      "user_visible_assistant_message_count": 2,
+      "envelope": {
+        "path_within_scenario": "envelope.json",
+        "sha256": "8c1f96f4f71773a45e17a228abecfffdd6f3d203394afd15a44e16e05911cb61",
+        "bytes": 7107
+      },
+      "artifacts": [
+        { "path_within_scenario": "artifacts/article.tex", "sha256": "d8b25be0a71b2ca206c6338578e4fa07149faed802196096f03fdec37f773234", "bytes": 79 },
+        { "path_within_scenario": "artifacts/draft.html", "sha256": "41d432a63f0b223015566d041c425ae142edf0e7455aa2df2afb7e17552b2c0b", "bytes": 189 }
+      ],
+      "skill_snapshot": {
+        "directory_within_scenario": "plagiarism-audit",
+        "file_count": 29,
+        "tree_sha256": "400790468bdb2a5f2fcf14b418b6d1d18e61cb2b1bd9701260832c46d0372342",
+        "embedded_entry_count": 29,
+        "embedded_hashes_and_sizes_match_files": true,
+        "normalized_embedded_tree_sha256": "400790468bdb2a5f2fcf14b418b6d1d18e61cb2b1bd9701260832c46d0372342",
+        "matched_repository_skill_at_capture": true
+      }
+    }
+  ],
+  "follow_up_runs": [
+    {
+      "purpose": "Accepted post-quality-review regression for the semantic both-missing intake contract",
+      "scenario_id": "underspecified-request",
+      "session_started_at": "2026-09-23T02:30:14.328Z",
+      "session_completed_at": "2026-09-23T02:30:21.259Z",
+      "model": "gpt-5.6-sol",
+      "codex_cli_version": "0.155.0-alpha.9.2",
+      "user_visible_assistant_message_count": 1,
+      "delivery": {
+        "mode": "inline verified SKILL.md entrypoint",
+        "skill_entrypoint_sha256": "b19d6b4356fa3b1f39a756299e12778a07315159812519b751491987a6dbea02",
+        "skill_entrypoint_bytes": 4618,
+        "exact_yaml_prompt_and_material": true,
+        "note": "No file read or tool call was needed for the both-missing stop decision; no expected wording or assertion text was supplied."
+      },
+      "skill_snapshot": {
+        "file_count": 29,
+        "tree_sha256": "d066af86ca398ad101ab2f5c571c123097c25db37d36fd92d27714b9276855eb",
+        "matched_repository_skill_at_dispatch": true
+      },
+      "assertions": {
+        "passed": 4,
+        "failed": 0,
+        "not_assessed": 0,
+        "result": "PASS"
+      },
+      "semantic_contract_result": "PASS: the sole user-visible message requests only the target and source corpus",
+      "accepted": true,
+      "cleanup_status": "not_applicable_inline_delivery"
+    }
+  ]
+}

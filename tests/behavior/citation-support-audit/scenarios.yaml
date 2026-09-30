@@ -1,0 +1,76 @@
+schema_version: 1
+purpose: >-
+  Black-box acceptance scenarios for the citation-support audit intake and
+  reporting workflow. Each assertion describes the required observable behavior,
+  not a prescribed wording.
+scenarios:
+  - id: underspecified-request
+    title: Identify only the missing target and corpus
+    prompt: "Use the skill to check my paper."
+    available_material: []
+    assertions:
+      - "The agent identifies that the target is missing."
+      - "The agent identifies that the source corpus is missing."
+      - "The result records every question the agent asks."
+
+  - id: docx-plus-pdf-folder
+    title: Accept a DOCX target and a local PDF source folder
+    prompt: >-
+      Check C:\\study\\draft.docx. The source corpus is the PDFs in
+      C:\\study\\sources\\; the DOCX contains author-year citations and a
+      reference list.
+    available_material:
+      - "C:\\study\\draft.docx (readable target)"
+      - "C:\\study\\sources\\ (readable folder containing canonical PDFs)"
+    assertions:
+      - "The agent accepts the DOCX target and PDF folder as supported inputs."
+      - "The agent attempts automatic citation-to-source mapping."
+      - "The agent does not ask the user to create a mapping file or map."
+
+  - id: incomplete-corpus
+    title: Continue with accessible evidence when one expected source is absent
+    prompt: >-
+      Audit C:\\study\\paper.md against C:\\study\\sources\\. Four cited
+      sources are expected: Alpha 2020, Bravo 2021, Chen 2022, and Diaz 2023.
+      Alpha, Bravo, and Chen are readable PDFs; Diaz 2023 is absent.
+    available_material:
+      - "C:\\study\\paper.md (readable target)"
+      - "Three readable canonical PDFs: Alpha 2020, Bravo 2021, Chen 2022"
+      - "Expected source record Diaz 2023, with no accessible PDF"
+    assertions:
+      - "The agent continues the audit with the three accessible sources."
+      - "The agent records Diaz 2023 as missing or unverifiable."
+      - "The agent does not label Diaz 2023 unsupported."
+
+  - id: ambiguous-mapping
+    title: Ask about the single material ambiguous citation-to-PDF match
+    prompt: >-
+      Audit C:\\study\\paper.md against C:\\study\\sources\\. Every
+      citation maps uniquely except Garcia (2021), which could plausibly map to
+      either Garcia_2021_A.pdf or Garcia_2021_B.pdf. Both PDFs are readable.
+    available_material:
+      - "C:\\study\\paper.md (readable target)"
+      - "Unique mappings for all citations other than Garcia (2021)"
+      - "Two plausible readable candidates: Garcia_2021_A.pdf and Garcia_2021_B.pdf"
+    assertions:
+      - "The agent asks the user to resolve only the Garcia (2021) pair."
+      - "The agent does not silently select either Garcia PDF."
+      - "The agent does not request a complete user-created mapping."
+
+  - id: default-scope
+    title: Run a complete citation audit when the user does not narrow scope
+    prompt: >-
+      Check the citations in C:\\study\\paper.md against the readable source
+      corpus in C:\\study\\sources\\.
+    available_material:
+      - "C:\\study\\paper.md (readable target with citations and reference list)"
+      - "C:\\study\\sources\\ (readable source corpus)"
+    assertions:
+      - "The audit covers substantive claim-source support."
+      - "The audit checks potentially missing citations."
+      - "The audit checks reference integrity."
+      - "The audit checks citation placement and scope."
+      - "The audit verifies direct quotations."
+      - "The audit checks style when it is determinable."
+      - "The audit reports citation metrics."
+      - "The audit reports corpus and audit coverage."
