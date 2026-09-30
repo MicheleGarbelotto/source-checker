@@ -1,0 +1,16 @@
+[
+  {
+    "id": "zotero-item-ABCD1234",
+    "citation-key": "Theory2024",
+    "title": "Seeking Comparison: A \"Conceptual\" Account",
+    "author": [
+      {"family": "Doe", "given": "Jane"},
+      {"family": "de la Cruz", "given": "Ana"}
+    ],
+    "issued": {"date-parts": [[2024, 3, 15]]},
+    "DOI": "10.1000/ABC.Def",
+    "URL": "https://doi.org/10.1000/ABC.Def",
+    "attachment": ["files/theory.pdf", {"path": "files/supplement.pdf"}]
+  },
+  {"id": "missing-fields"}
+]

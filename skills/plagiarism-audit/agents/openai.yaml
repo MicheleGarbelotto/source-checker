@@ -1,0 +1,4 @@
+interface:
+  display_name: "Plagiarism Audit"
+  short_description: "Audit a document for source-bounded similarity"
+  default_prompt: "Use $plagiarism-audit to audit this document against the specified source corpus and report similarity evidence and coverage."

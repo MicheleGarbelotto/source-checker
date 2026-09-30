@@ -1,0 +1,75 @@
+name: Bug report
+description: Report a reproducible problem in source-checker.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Use only synthetic material. Remove confidential document content,
+        credentials, personal data, and identifying paths before submitting.
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      description: Provide the release version or full commit identifier.
+    validations:
+      required: true
+  - type: input
+    id: operating-system
+    attributes:
+      label: Operating system
+      description: Include the operating system and version.
+    validations:
+      required: true
+  - type: input
+    id: python-version
+    attributes:
+      label: Python version
+      description: Provide the output of `python --version`.
+    validations:
+      required: true
+  - type: input
+    id: input-format
+    attributes:
+      label: Input format
+      description: Identify the target and source file formats involved.
+    validations:
+      required: true
+  - type: input
+    id: corpus-route
+    attributes:
+      label: Corpus route
+      description: Identify the local files, bibliography, or local Zotero route used.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal synthetic reproduction
+      description: Provide minimal synthetic inputs and exact reproduction steps.
+    validations:
+      required: true
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: Actual behavior
+      description: Describe what happened, including relevant output.
+    validations:
+      required: true
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description: Describe what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Sanitized logs
+      description: Paste logs after removing all confidential material.
+      render: shell
+    validations:
+      required: true
